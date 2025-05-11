@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -12,11 +13,25 @@ export async function getStaticPaths() {
 
 // const { id } = Astro.params;
 const { post } = Astro.props;
-console.log(post);
+
+// console.log(post);
 const { Content } = await render(post);
 ---
 
 <Layout>
-  <h1>Post: {post.data.title}</h1>
-  <Content />
+  <main>
+    <h1>{post.data.title}</h1>
+    <img src={post.data.thumbnail} alt={post.data.title} />
+    <Content />
+  </main>
 </Layout>
+
+<style>
+  main {
+    padding: 0 2rem;
+  }
+  img {
+    width: 400px;
+    height: auto;
+  }
+</style>
