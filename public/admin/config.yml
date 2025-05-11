@@ -13,6 +13,9 @@ site_url: https://astro-decap-cms1.netlify.app
 display_url: https://astro-decap-cms1.netlify.app
 logo_url: https://astro-decap-cms1.netlify.app/favicon.svg
 
+media_folder: 'src/assets/images' # Location where files will be stored in the repo
+public_folder: 'src/assets/images' # The src attribute for uploaded media
+
 collections:
   - name: 'blog' # Used in routes, e.g., /admin/collections/blog
     label: 'Blog' # Used in the UI
@@ -25,7 +28,3 @@ collections:
       - { label: 'Featured Image', name: 'thumbnail', widget: 'image' }
       - { label: 'Rating (scale of 1-5)', name: 'rating', widget: 'number' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
-
-media_folder: '/src/assets/images' # Location where files will be stored in the repo
-public_folder: '/src/assets/images' # The src attribute for uploaded media
-
