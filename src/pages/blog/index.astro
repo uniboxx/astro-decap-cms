@@ -1,0 +1,61 @@
+---
+import Time from '../../components/Time.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+const posts = await getCollection('blog');
+// export async function getStaticPaths() {
+//   return posts.map((post) => ({
+//     params: { id: post.id },
+//     props: { post },
+//   }));
+// }
+
+// const { id } = Astro.params;
+// const { post } = Astro.props;
+// console.log(post);
+// const { Content } = await render(post);
+---
+
+<Layout>
+  <main>
+    <h1>Blog</h1>
+
+    <div class="posts__list">
+      <div class="header">
+        <p>Title</p>
+        <p>Published</p>
+      </div>
+
+      {
+        posts.map((post) => {
+          return (
+            <p class="post__item">
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+              <span>
+                Published: <Time time={post.data.date} />
+              </span>
+            </p>
+          );
+        })
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    padding: 2rem;
+  }
+  .posts__list {
+    max-width: 500px;
+  }
+  .header,
+  .post__item {
+    display: flex;
+    justify-content: space-between;
+  }
+  .header {
+    font-weight: bold;
+  }
+</style>
