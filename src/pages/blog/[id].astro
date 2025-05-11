@@ -13,9 +13,7 @@ export async function getStaticPaths() {
 
 // const { id } = Astro.params;
 const { post } = Astro.props;
-const imageUrl = post.data.thumbnail.startsWith('http')
-  ? post.data.thumbnail
-  : '../' + post.data.thumbnail;
+
 // console.log(post);
 const { Content } = await render(post);
 ---
@@ -23,7 +21,7 @@ const { Content } = await render(post);
 <Layout>
   <main>
     <h1>{post.data.title}</h1>
-    <img src={imageUrl} alt={post.data.title} />
+    <img src={post.data.thumbnail} alt={post.data.title} />
     <Content />
   </main>
 </Layout>
