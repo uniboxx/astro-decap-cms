@@ -10,16 +10,20 @@
   <body>
     <header>
       <nav>
-        <a
-          href="/"
-          aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Home</a
-        >
-        <a
-          href="/blog"
-          aria-current={Astro.url.pathname.startsWith('/blog')
-            ? 'page'
-            : undefined}>Blog</a
-        >
+        <div class="logo">Astro Basics</div>
+        <div class="menu">
+          <a
+            href="/"
+            aria-current={Astro.url.pathname === '/' ? 'page' : undefined}
+            >Home</a
+          >
+          <a
+            href="/blog"
+            aria-current={Astro.url.pathname.startsWith('/blog')
+              ? 'page'
+              : undefined}>Blog</a
+          >
+        </div>
       </nav>
     </header>
     <slot />
@@ -49,12 +53,24 @@
     }
   }
   nav {
+    max-width: 800px;
+    margin: 0 auto 40px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 20px;
     padding: 10px;
-    a[aria-current='page'] {
+    .logo {
       font-weight: bold;
-      text-decoration: underline;
+      font-size: 1.2rem;
+    }
+    .menu {
+      display: flex;
+      gap: 20px;
+      a[aria-current='page'] {
+        font-weight: bold;
+        text-decoration: underline;
+      }
     }
   }
 </style>
