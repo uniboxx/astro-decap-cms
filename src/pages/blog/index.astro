@@ -14,7 +14,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 console.log(posts[1].body);
 function createExcerpt(post:any) {
   const firstParagraphRaw = post.body.match(/^\w+[\w\W]+/m)[0];
-  const  excerpt = firstParagraphRaw.replace(/[^\w\s\.,\!\?\n]+/mg, '').substring(0, 100).replace(/[\w+\.?]$/m, '').trim() + ' ...';
+  const  excerpt = firstParagraphRaw.replace(/[^\w\s\.,\!\?\n]+/mg, '').substring(0, 150).replace(/[\w+\.?]$/m, '').trim() + '...';
   return excerpt;
 
 }
