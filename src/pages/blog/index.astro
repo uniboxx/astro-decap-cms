@@ -11,8 +11,14 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 
 
 
-// console.log(posts);
-console.log(posts[0].body);
+console.log(posts[1].body);
+function createExcerpt(post:any) {
+  const firstParagraphRaw = post.body.match(/^\w+[\w\W]+/m)[0];
+  const  excerpt = firstParagraphRaw.replace(/[^\w\s\.,\!\?\n]+/mg, '').substring(0, 100).replace(/[\w+\.?]$/m, '').trim() + ' ...';
+  return excerpt;
+
+}
+createExcerpt(posts[1]);
 ---
 
 <Layout>
@@ -20,21 +26,18 @@ console.log(posts[0].body);
     <h1>Blog</h1>
 
     <div class="posts__list">
-      <div class="header">
-        <p>Title</p>
-        <p>Published</p>
-      </div>
+     
 
       {
         posts.map((post) => {
           return (
             <p class="post__item">
               <a href={`/blog/${post.id}`}>{post.data.title}</a>
-              <span>
-                Published: <Time time={post.data.date} />
+              <span class="published">
+                Published on: <Time time={post.data.date} />
               </span>
             </p>
-            <p class="excerpt">{post.body?.slice(0,100)+' ...'} <a href={`/blog/${post.id}`}>Read more</a></span></p>
+            <p class="excerpt">{createExcerpt(post)} <a href={`/blog/${post.id}`}>Read more</a></span></p>
           )
         })
       }
@@ -53,6 +56,10 @@ console.log(posts[0].body);
   .post__item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    .published{
+      font-size: .8rem;
+    }
   }
   .header {
     font-weight: bold;
