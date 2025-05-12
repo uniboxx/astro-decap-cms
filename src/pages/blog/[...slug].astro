@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -13,9 +14,16 @@ export async function getStaticPaths() {
 // const { id } = Astro.params;
 const { post } = Astro.props;
 
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/*.{jpg,jpeg,png,webp,avif,svg,gif}'
+);
+console.log(images);
+console.log(post.data.thumbnail);
+
 const imageUrl = post.data.thumbnail.startsWith('http')
   ? post.data.thumbnail
-  : `../${post.data.thumbnail}`;
+  : images[post.data.thumbnail]();
+console.log(imageUrl);
 
 // console.log(post);
 const { Content } = await render(post);
@@ -25,7 +33,7 @@ const { Content } = await render(post);
   <main>
     <h1>{post.data.title}</h1>
     <div class="image">
-      <img src={post.data.thumbnail} alt={post.data.title} />
+      <Image src={imageUrl} width={400} height={300} alt={post.data.title} />
     </div>
     <Content />
   </main>
@@ -35,9 +43,16 @@ const { Content } = await render(post);
   main {
     padding: 0 1rem;
   }
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
   .image {
+    width: 100%;
     max-width: 400px;
+    margin: 0 auto;
     img {
+      display: block;
       object-fit: cover;
       width: 100%;
       height: 100%;
