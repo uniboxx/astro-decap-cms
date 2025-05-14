@@ -2,22 +2,11 @@
 import Time from '../../components/Time.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { createExcerpt } from '@lib/utils';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-
-function createExcerpt(post: any) {
-  const firstParagraph = post.body.match(/^\w+[\w\W]+/m)[0];
-  // console.log(firstParagraph);
-  const first150 = firstParagraph
-    .replace(/[^\w\s\.,!\?\n]+/gm, '')
-    .substring(0, 150);
-  // console.log(first150);
-  const excerpt = first150.replace(/[\w\.?]+$/m, '').trim() + ' ...';
-  console.log(excerpt);
-  return excerpt;
-}
 ---
 
 <BaseLayout seoTitle="Blog" title="Blog">
@@ -34,8 +23,11 @@ function createExcerpt(post: any) {
             </span>
           </div>
           <p class="excerpt">
-            {createExcerpt(post)} <a href={`/blog/${post.id}`}>Read more</a>
+            {createExcerpt(post)} <a href={`/blog/${post.id}`}>Read more <span class="brackets">&#187;</span></a>
           </p>
+        </div>
+        <div class="separator">
+          <div class="line"></div><span>*</span><div class="line"></div>
         </div>
       ))
     }
@@ -45,12 +37,6 @@ function createExcerpt(post: any) {
 <style>
   .posts__list {
     max-width: 70ch;
-  }
-
-  .post__item {
-    &:not(:last-child) {
-      margin-bottom: 2rem;
-    }
   }
 
   .header {
@@ -66,9 +52,32 @@ function createExcerpt(post: any) {
   }
   .excerpt {
     a {
-      text-decoration: underline;
       color: #999;
       font-size: 0.8rem;
+      text-decoration: underline;
+    
+      &:hover{
+        color: inherit;
+      }
     }
   }
+  .separator {
+    margin: 2rem auto 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    .line {
+      height: 1px;
+      background-color: #999;
+      width: 30%;
+    }
+    span{
+      transform: translateY(.2rem);
+    }
+    &:last-of-type{
+      display: none;
+    }
+  }
+
 </style>
