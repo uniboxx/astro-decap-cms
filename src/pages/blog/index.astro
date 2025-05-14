@@ -1,75 +1,74 @@
 ---
-import { render } from 'astro:content';
 import Time from '../../components/Time.astro';
-import Layout from '../../layouts/Layout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 
-
-
-
-console.log(posts[1].body);
-function createExcerpt(post:any) {
-  const firstParagraphRaw = post.body.match(/^\w+[\w\W]+/m)[0];
-  const  excerpt = firstParagraphRaw.replace(/[^\w\s\.,\!\?\n]+/mg, '').substring(0, 150).replace(/[\w+\.?]$/m, '').trim() + '...';
+function createExcerpt(post: any) {
+  const firstParagraph = post.body.match(/^\w+[\w\W]+/m)[0];
+  // console.log(firstParagraph);
+  const first150 = firstParagraph
+    .replace(/[^\w\s\.,!\?\n]+/gm, '')
+    .substring(0, 150);
+  // console.log(first150);
+  const excerpt = first150.replace(/[\w\.?]+$/m, '').trim() + ' ...';
+  console.log(excerpt);
   return excerpt;
-
 }
-createExcerpt(posts[1]);
 ---
 
-<Layout>
-  <main>
-    <h1>Blog</h1>
-
-    <div class="posts__list">
-     
-
-      {
-        posts.map((post) => {
-          return (
-            <p class="post__item">
+<BaseLayout seoTitle="Blog" title="Blog">
+  <section class="posts__list">
+    {
+      posts.map((post) => (
+        <div class="post__item">
+          <div class="header">
+            <h2>
               <a href={`/blog/${post.id}`}>{post.data.title}</a>
-              <span class="published">
-                Published on: <Time time={post.data.date} />
-              </span>
-            </p>
-            <p class="excerpt">{createExcerpt(post)} <a href={`/blog/${post.id}`}>Read more</a></span></p>
-          )
-        })
-      }
-    </div>
-  </main>
-</Layout>
+            </h2>
+            <span class="published">
+              Published on: <Time time={post.data.date} />
+            </span>
+          </div>
+          <p class="excerpt">
+            {createExcerpt(post)} <a href={`/blog/${post.id}`}>Read more</a>
+          </p>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>
 
 <style>
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
   .posts__list {
-    max-width: 500px;
+    max-width: 70ch;
   }
-  .header,
+
   .post__item {
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .published{
-      font-size: .8rem;
+    min-height: 3rem;
+
+    .published {
+      font-size: 0.8rem;
+      color: #999;
     }
   }
-  .header {
-    font-weight: bold;
-  }
   .excerpt {
-    font-size: .8rem;
-    a{
-      display: block;
+    a {
+      text-decoration: underline;
+      color: #999;
+      font-size: 0.8rem;
     }
   }
 </style>

@@ -1,0 +1,48 @@
+---
+import Link from '@components/Link.astro';
+import '@styles/global.css';
+
+const { seoTitle = 'Astro + Decapcms', title = '' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{seoTitle}</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo"><a href="/">Logo</a></div>
+        <menu>
+          <Link href="/about">About</Link>
+          <Link href="/blog">Blog</Link>
+        </menu>
+      </nav>
+    </header>
+    <main>
+      <h1>{title}</h1>
+      <slot />
+    </main>
+    <footer>
+      <section>
+        <p>&copy; {new Date().getFullYear()} Unibox</p>
+      </section>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  h1 {
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+const { href, ...props } = Astro.props;
+---
+
+<a
+  href={href}
+  aria-current={Astro.url.pathname === href ||
+  Astro.url.pathname.startsWith(`${href}/`)
+    ? true
+    : false}
+  ><slot />
+</a>
+
+<style>
+  a {
+    &[aria-current='true'] {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+</style>
