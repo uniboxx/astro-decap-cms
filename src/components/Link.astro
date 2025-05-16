@@ -2,23 +2,27 @@
 const { href, ...props } = Astro.props;
 ---
 
-<a
-  href={href}
+<li
   aria-current={Astro.url.pathname === href ||
   Astro.url.pathname.startsWith(`${href}/`)
     ? true
     : false}
-  ><slot />
-</a>
+>
+  <a href={href}><slot /> </a>
+</li>
 
 <style>
-  a {
+  li {
+    transition: 0.3s ease-in-out;
+    border-bottom: 2px solid;
+    border-bottom-color: transparent;
+    &:hover {
+      border-bottom-color: #999;
+    }
+
     &[aria-current='true'] {
       font-weight: bold;
-      text-decoration: underline;
-    }
-    &:hover {
-      text-decoration: underline;
+      border-bottom-color: #999;
     }
   }
 </style>

@@ -2,7 +2,7 @@
 import Link from '@components/Link.astro';
 import '@styles/global.css';
 
-const { seoTitle = 'Astro + Decapcms', title = '' } = Astro.props;
+const { seoTitle = 'Astro + Decapcms' } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +25,6 @@ const { seoTitle = 'Astro + Decapcms', title = '' } = Astro.props;
       </nav>
     </header>
     <main>
-      <h1>{title}</h1>
       <slot />
     </main>
     <footer>
@@ -44,5 +43,14 @@ const { seoTitle = 'Astro + Decapcms', title = '' } = Astro.props;
 
   h1 {
     text-align: center;
+  }
+  footer {
+    display: flex;
+    align-items: center;
+    section {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
   }
 </style>

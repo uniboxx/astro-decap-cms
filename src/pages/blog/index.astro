@@ -9,7 +9,8 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
-<BaseLayout seoTitle="Blog" title="Blog">
+<BaseLayout seoTitle="Blog" >
+  <h1>Blog</h1>
   <section class="posts__list">
     {
       posts.map((post) => (
@@ -22,9 +23,10 @@ const posts = (await getCollection('blog')).sort(
               Published on: <Time time={post.data.date} />
             </span>
           </div>
-          <p class="excerpt">
-            {createExcerpt(post)} <a href={`/blog/${post.id}`}>Read more <span class="brackets">&#187;</span></a>
-          </p>
+          <div class="excerpt">
+          <p>{createExcerpt(post)}</p>
+          <p><a href={`/blog/${post.id}`}>Read more <span class="brackets">&#187;</span></a></p>
+          </div>
         </div>
         <div class="separator">
           <div class="line"></div><span>*</span><div class="line"></div>
@@ -36,21 +38,36 @@ const posts = (await getCollection('blog')).sort(
 
 <style>
   .posts__list {
-    max-width: 70ch;
+    max-width: 60ch;
   }
 
   .header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 3rem;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    @media screen and (min-width: 40rem) {
+      flex-direction: row;
+      justify-content: space-between;
+      
+    }
+
 
     .published {
       font-size: 0.8rem;
       color: #999;
+      @media screen and (min-width: 40rem) {
+        align-self: end;
+      }
+   
     }
   }
   .excerpt {
+    p{
+      margin-bottom: 0;
+      &:last-of-type{
+        text-align: right;
+      }
+    }
     a {
       color: #999;
       font-size: 0.8rem;
@@ -62,7 +79,7 @@ const posts = (await getCollection('blog')).sort(
     }
   }
   .separator {
-    margin: 2rem auto 1rem;
+    margin: 1rem auto 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
