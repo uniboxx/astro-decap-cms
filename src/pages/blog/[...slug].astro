@@ -5,17 +5,13 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import { readingTime } from '@lib/utils';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
-}
+const posts = await getCollection('blog');
 
 const { slug } = Astro.params;
 // console.log(slug);
-const { post } = Astro.props;
+
+const post = posts.find(post=> post.id===slug);
+if (!post) return Astro.redirect("/404");
 // console.log(post.body);
 
 const time = post.body && readingTime(post.body);
