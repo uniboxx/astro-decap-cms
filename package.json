@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "astro": "^5.18",
-    "decap-cms-app": "^3.6.2",
+    "decap-cms-app": "^3.10.0",
     "@astrojs/netlify": "^6.6.4"
   },
   "scripts": {
