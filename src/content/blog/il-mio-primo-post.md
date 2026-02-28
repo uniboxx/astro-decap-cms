@@ -2,7 +2,7 @@
 layout: blog
 title: Il mio primo Post con decap
 date: 2025-05-11T14:05:00.000Z
-thumbnail: /src/assets/images/about-me.jpg
+thumbnail: /src/assets/images/1000054059.jpg
 ---
 ## Questo è un sottotitolo
 
