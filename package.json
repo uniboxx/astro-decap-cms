@@ -4,7 +4,7 @@
   "dependencies": {
     "astro": "^5.18",
     "decap-cms-app": "^3.6.2",
-    "@astrojs/netlify"
+    "@astrojs/netlify": "^6.6.4"
   },
   "scripts": {
     "dev": "astro dev",
