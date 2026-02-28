@@ -1,16 +1,23 @@
 ---
-export const prerender = false;
+// export const prerender = false;
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import { readingTime } from '@lib/utils';
 
+export async function getStaticPaths() {
 const posts = await getCollection('blog');
-
+return posts.map(post => ({
+  params: {slug:post id},
+  props: {post}
+})
+)
+}
 const { slug } = Astro.params;
 // console.log(slug);
 
-const post = posts.find(post=> post.id===slug);
+// const post = posts.find(post=> post.id===slug);
+const {post) = Astro.props;
 if (!post) return Astro.redirect("/404");
 // console.log(post.body);
 
