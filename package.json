@@ -2,8 +2,9 @@
   "name": "astro-decap-cms",
   "version": "0.0.1",
   "dependencies": {
-    "astro": "^5.7.12",
-    "decap-cms-app": "^3.6.2"
+    "astro": "^5.18",
+    "decap-cms-app": "^3.6.2",
+    "@astrojs/netlify"
   },
   "scripts": {
     "dev": "astro dev",
