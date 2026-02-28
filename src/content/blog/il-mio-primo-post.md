@@ -6,4 +6,4 @@ thumbnail: /src/assets/images/about-me.jpg
 ---
 ## Questo è un sottotitolo
 
-Scrivo questo per **dire** che sono veramente [a casa](/) con questo post. Sono veramente contento.
+Scrivo questo per **dire** che sono veramente [a casa](/) con questo post. Sono veramente contento. Adesso anche di più.
